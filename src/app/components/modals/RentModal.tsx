@@ -72,7 +72,7 @@ const RentModal = () => {
 
   const Map = dynamic(() => import("../Map"), { ssr: false });
 
-
+const centers = location?.latlng ? [location.latlng] : [];
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldValidate: true,
@@ -178,7 +178,7 @@ const RentModal = () => {
           onChange={(value) => setCustomValue("location", value)}
         />
         <div className="md:h-[300px]">
-          <Map center={location?.latlng} />
+         <Map centers={centers} />
         </div>
       </div>
     );

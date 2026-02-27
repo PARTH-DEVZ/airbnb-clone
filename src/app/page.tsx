@@ -9,12 +9,13 @@ import dynamic from "next/dynamic";
 import useCountries from "./hooks/useCountries";
 
 interface HomeProps {
-  searchParams: IListingsParams;
+  searchParams: Promise<Record<string, string>>;
 }
 
 const Home = async ({ searchParams }: HomeProps) => {
   const currentUser = await getCurrentUser();
-  const listings = await getListings(searchParams);
+  const resolvedSearchParams = await searchParams;
+  const listings = await getListings(resolvedSearchParams);
   const { getByValue } = useCountries();
   const Map = dynamic(() => import('@/app/components/Map'), {});
 
@@ -46,7 +47,11 @@ const Home = async ({ searchParams }: HomeProps) => {
 
         {/* Fixed Map (only on 2xl screens) */}
         <div className="hidden 2xl:block fixed top-0 right-0 h-screen w-[700px] p-4">
-          <Map height={true} centers={coordinates} />
+         <Map 
+         height={true}
+    centers={listings.map(l => getByValue(l.locationValue)?.latlng).filter(Boolean) as number[][]} 
+    locationValues={listings.map(l => l.locationValue)} 
+/>
         </div>
       </div>
     </ClientOnly>

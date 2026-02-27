@@ -22,7 +22,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ icon: Icon, label, selected }
       currentQuery = qs.parse(params.toString());
     }
     const updatedQuery: any = {
-      ...currentQuery, Category: label
+      ...currentQuery, category: label
     }
 
     if (params?.get('Category') === label) {

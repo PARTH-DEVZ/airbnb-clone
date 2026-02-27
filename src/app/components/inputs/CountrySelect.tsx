@@ -18,7 +18,7 @@ interface CountrySelectProps {
 
 const CountrySelect: React.FC<CountrySelectProps> = ({ value, onChange }) => {
   const { getAll } = useCountries();
-
+  
   return (
     <Select
       placeholder="Anywhere"

@@ -12,6 +12,7 @@ export interface IListingsParams {
 }
 
 export async function getListings(searchParams: Record<string, string>) {
+
   try {
     const {
       userId,
@@ -34,21 +35,32 @@ export async function getListings(searchParams: Record<string, string>) {
     if (locationValue) query.locationValue = locationValue;
 
     if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+
       query.NOT = {
         reservations: {
           some: {
-            OR: [
-              { endDate: { gte: startDate }, startDate: { lte: startDate } },
-              { startDate: { lte: endDate }, endDate: { gte: endDate } },
+            AND: [
+              { startDate: { lte: end } },
+              { endDate: { gte: start } },
             ],
           },
         },
       };
     }
+   
 
     const listings = await prisma.listing.findMany({
       where: query,
-      orderBy: { createdAt: "desc" },
+      orderBy: [
+        {
+          locationValue: locationValue ? "asc" : undefined,
+        },
+        {
+          createdAt: "desc",
+        },
+      ],
     });
 
     return listings.map((listing) => ({

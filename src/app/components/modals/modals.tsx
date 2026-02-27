@@ -31,6 +31,17 @@ const Modal: React.FC<ModalProps> = ({
   const [showModal, setShowModal] = useState(isOpen);
 
   useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
     setShowModal(isOpen);
   }, [isOpen]);
 
@@ -63,7 +74,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <>
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70">
+      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 backdrop-blur-md">
         <div className="relative w-full md:w-[65%] lg:w-[65%] xl:w-[30%] my-6 mx-auto h-full lg:h-auto md:h-auto">
           <div className={`translate duration-300 w-full 
             ${showModal ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}>

@@ -1,13 +1,13 @@
 import { SafeUser } from "@/app/types";
-import { AiOutlineCheckCircle } from "react-icons/ai"; // Importing icon
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IconType } from "react-icons";
+import { IoPeopleOutline } from "react-icons/io5";
+import { MdOutlineBedroomParent, MdOutlineBathroom } from "react-icons/md";
 import Avatar from "../Avatar";
 import useCountries from "@/app/hooks/useCountries";
 import ListingCategory from "./ListingCategory";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-
-
 
 interface ListingInfoProps {
     user: SafeUser;
@@ -34,62 +34,88 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
 }) => {
     const { getByValue } = useCountries();
     const coordinates = getByValue(locationValue)?.latlng;
+    const centers = coordinates ? [coordinates] : [];
+
     const Map = dynamic(() => import('../Map'), {
         ssr: false,
-    })
+    });
+
     return (
-        <div className="col-span-4 flex flex-col gap-8">
-            <div className="flex flex-col gap-2">
-                <hr />
+        <div className="col-span-4 flex flex-col gap-6">
 
-                
-
-                <div className="text-xl font-semibold flex items-center gap-4 py-4">
-                    <AiOutlineCheckCircle className="w-10 h-10 text-gray-600" />
-                    <div>Amenities</div>
+            {/* Amenities Section */}
+            <div className="flex flex-col gap-4">
+                <hr />
+                <div className="flex items-center gap-3 py-2">
+                    <AiOutlineCheckCircle className="w-6 h-6 text-rose-400" />
+                    <h2 className="text-xl font-semibold">Amenities</h2>
                 </div>
-                <div className="flex flex-row items-center gap-4  font-light text-neutral-500">
-                    <div>{guestCount} guests</div>
-                    <div>{roomCount} rooms</div>
-                    <div>{bathroomCount} bathrooms</div>
+
+                <div className="grid grid-cols-3 gap-4">
+                    <div className="flex flex-col items-center justify-center bg-neutral-50 border border-neutral-200 rounded-xl py-4 gap-2 hover:shadow-sm transition">
+                        <IoPeopleOutline className="w-6 h-6 text-neutral-600" />
+                        <span className="text-sm font-medium text-neutral-700">{guestCount} Guests</span>
+                    </div>
+                    <div className="flex flex-col items-center justify-center bg-neutral-50 border border-neutral-200 rounded-xl py-4 gap-2 hover:shadow-sm transition">
+                        <MdOutlineBedroomParent className="w-6 h-6 text-neutral-600" />
+                        <span className="text-sm font-medium text-neutral-700">{roomCount} Rooms</span>
+                    </div>
+                    <div className="flex flex-col items-center justify-center bg-neutral-50 border border-neutral-200 rounded-xl py-4 gap-2 hover:shadow-sm transition">
+                        <MdOutlineBathroom className="w-6 h-6 text-neutral-600" />
+                        <span className="text-sm font-medium text-neutral-700">{bathroomCount} Bathrooms</span>
+                    </div>
                 </div>
                 <hr />
-                {category && (
+            </div>
+
+            {/* Category Section */}
+            {category && (
+                <div className="flex flex-col gap-4">
                     <ListingCategory
                         icon={category.icon}
                         label={category.label}
                         description={category.description}
                     />
+                    <hr />
+                </div>
+            )}
 
-                )}
-                <hr />
-
-                <div className="text-lg font-light text-neutral-500 py-4 ">
+            {/* Description Section */}
+            <div className="flex flex-col gap-3">
+                <h2 className="text-xl font-semibold">About this place</h2>
+                <p className="text-base font-light text-neutral-500 leading-relaxed">
                     {description}
-                </div>
+                </p>
                 <hr />
-                <div className="py-4">
-                    <Map center={coordinates} />
-                </div>
-                <hr />
-                
+            </div>
 
-                <div className="text-xl font-semibold flex items-center gap-4 py-4">
+            {/* Map Section */}
+            <div className="flex flex-col gap-3">
+                <h2 className="text-xl font-semibold">Where you&apos;ll be</h2>
+                <div className="rounded-xl overflow-hidden border border-neutral-200 shadow-sm">
+                    <Map centers={centers} />
+                </div>
+                <hr />
+            </div>
+
+            {/* Host Section */}
+            <div className="flex items-center gap-4 py-2">
+                <div className="relative">
                     <Image
                         src={user?.image}
                         alt="User Icon"
-                        width={40} // Adjust size as needed
-                        height={40}
-                        className="rounded-full object-cover"
+                        width={56}
+                        height={56}
+                        className="rounded-full object-cover ring-2 ring-rose-100"
                     />
-                    <div>
-                        <div>Hosted by {user?.name}</div>
-                        <div className="text-sm font-normal text-neutral-500">Airbnb Account since 2025</div>
-                    </div>
                 </div>
-
-                <hr />
+                <div className="flex flex-col">
+                    <span className="text-lg font-semibold">Hosted by {user?.name}</span>
+                    <span className="text-sm font-light text-neutral-400">Airbnb Account since 2025</span>
+                </div>
             </div>
+
+            <hr />
         </div>
     );
 };

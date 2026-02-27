@@ -37,12 +37,18 @@ const SearchModal = () => {
         key: "selection",
     });
 
+    const centers = location?.latlng ? [location.latlng] : [];
     const stepRef = useRef(step);
 
 
     useEffect(() => {
         stepRef.current = step;
     }, [step]);
+    const locationRef = useRef<CountrySelectValue | undefined>(undefined);
+
+    useEffect(() => {
+        locationRef.current = location;
+    }, [location]);
 
     const onBack = useCallback(() => {
         setStep((value) => value - 1);
@@ -50,7 +56,7 @@ const SearchModal = () => {
 
     const onNext = useCallback(() => {
         setStep((value) => value + 1);
-        console.log(step)
+
     }, []);
 
 
@@ -67,7 +73,7 @@ const SearchModal = () => {
 
         const updatedQuery: any = {
             ...currentQuery,
-            locationValue: location?.value,
+            locationValue: locationRef.current?.value, // 👈
             guestCount,
             roomCount,
             bathroomCount,
@@ -87,8 +93,9 @@ const SearchModal = () => {
         );
 
         searchModal.onClose();
+
         router.push(url);
-    }, [step, onNext, params, location, guestCount, roomCount, bathroomCount, dateRange, searchModal, router]);
+    }, [onNext, params, guestCount, roomCount, bathroomCount, dateRange, searchModal, router]);
 
 
     const Map = useMemo(
@@ -125,9 +132,12 @@ const SearchModal = () => {
             />
             <CountrySelect
                 value={location}
-                onChange={(value) => setLocation(value as CountrySelectValue)}
+                onChange={(value) => {
+                    locationRef.current = value as CountrySelectValue;
+                    setLocation(value as CountrySelectValue);
+                }}
             />
-            <Map center={location?.latlng} />
+            <Map centers={centers} />
         </div>
     );
 
