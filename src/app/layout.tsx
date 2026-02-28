@@ -16,10 +16,30 @@ const font = Nunito({
   subsets: ["latin"]
 })
 export const metadata: Metadata = {
-  title: "Airbnb",
-  description: "Welcome to Airbnb",
+  metadataBase: new URL("https://yourdomain.com"), // Replace with your deployed URL
+  title: {
+    default: "Airbnb ",
+    template: "%s | Airbnb ",
+  },
+  description: "Find and book unique stays around the world.",
+  icons: {
+    icon: "/images/airbnb-icon-logo.png",
+  },
+  openGraph: {
+    title: "Airbnb ",
+    description: "Find and book unique stays around the world.",
+    url: "/", 
+    siteName: "Airbnb ",
+    images: [
+      {
+        url: "/images/airbnb-icon-logo.png", 
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
-
 export default async function RootLayout({
   children,
 }: Readonly<{

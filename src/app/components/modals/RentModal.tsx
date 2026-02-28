@@ -31,13 +31,13 @@ enum STEPS {
 const RentModal = () => {
   const rentModal = useRentModal();
   const router = useRouter();
-  const [step,setStep] = useState(0)
-  const [isloading, setIsloading]=useState(false)
+  const [step, setStep] = useState(0)
+  const [isloading, setIsloading] = useState(false)
 
 
-  const stepRef = useRef(step); 
+  const stepRef = useRef(step);
 
- 
+
   useEffect(() => {
     stepRef.current = step;
   }, [step]);
@@ -72,7 +72,7 @@ const RentModal = () => {
 
   const Map = dynamic(() => import("../Map"), { ssr: false });
 
-const centers = location?.latlng ? [location.latlng] : [];
+  const centers = location?.latlng ? [location.latlng] : [];
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldValidate: true,
@@ -83,24 +83,24 @@ const centers = location?.latlng ? [location.latlng] : [];
 
 
   const onBack = () => {
-    setStep((value) =>value - 1);
+    setStep((value) => value - 1);
   };
-  
+
   const onNext = () => {
-    setStep((value) =>value + 1 );
+    setStep((value) => value + 1);
   };
-  
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log("data: ", data); 
+    console.log("data: ", data);
     console.log("stepRef.current: ", stepRef.current);
-    
+
     if (stepRef.current !== STEPS.PRICE) {
       console.log("Inside If");
       return onNext();
     }
-    
+
     setIsloading(true);
-    
+
     axios.post('/api/listings', data)
       .then(() => {
         toast.success('Listing Created!');
@@ -117,7 +117,7 @@ const centers = location?.latlng ? [location.latlng] : [];
         setIsloading(false);
       });
   };
-  
+
   const actionLabel = useMemo(() => {
     if (step === STEPS.PRICE) {
       return "Create";
@@ -178,7 +178,7 @@ const centers = location?.latlng ? [location.latlng] : [];
           onChange={(value) => setCustomValue("location", value)}
         />
         <div className="md:h-[300px]">
-         <Map centers={centers} />
+          <Map centers={centers} />
         </div>
       </div>
     );
@@ -220,74 +220,74 @@ const centers = location?.latlng ? [location.latlng] : [];
   }
 
 
-//IMAGE MODAL
-if (step === STEPS.IMAGES) {
-  bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading 
-        title="Add a photo of your place" 
-        subtitle="Show guests what your place looks like!" 
-      />
-      <ImageUpload
-        value={imageSrc}
-        onChange={(value) => setCustomValue('imageSrc', value)}
-      />
-    </div>
-  );
-}
+  //IMAGE MODAL
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Add a photo of your place"
+          subtitle="Show guests what your place looks like!"
+        />
+        <ImageUpload
+          value={imageSrc}
+          onChange={(value) => setCustomValue('imageSrc', value)}
+        />
+      </div>
+    );
+  }
 
-// DESCRIPTION MODAL
-if (step === STEPS.DESCRIPTION) {
-  bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading 
-        title="How would you describe your place?" 
-        subtitle="Short and sweet works best!" 
-      />
-      <Input
-        id="title"
-        label="Title"
-        disabled={isloading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <hr />
-      <Input
-        id="description"
-        label="Description"
-        disabled={isloading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <hr />
-    </div>
-  );
-}
+  // DESCRIPTION MODAL
+  if (step === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="How would you describe your place?"
+          subtitle="Short and sweet works best!"
+        />
+        <Input
+          id="title"
+          label="Title"
+          disabled={isloading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label="Description"
+          disabled={isloading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+      </div>
+    );
+  }
 
 
-// PRICE MODAL
-if (step === STEPS.PRICE) {
-  bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading 
-        title="Now, set your price" 
-        subtitle="How much do you charge per night?" 
-      />
-      <Input
-        id="price"
-        label="Price"
-        formatPrice
-        type="number"
-        disabled={isloading}
-        register={register}
-        errors={errors}
-        required
-      />
-    </div>
-  );
-}
+  // PRICE MODAL
+  if (step === STEPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Now, set your price"
+          subtitle="How much do you charge per night?"
+        />
+        <Input
+          id="price"
+          label="Price"
+          formatPrice
+          type="number"
+          disabled={isloading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
+  }
 
 
 
