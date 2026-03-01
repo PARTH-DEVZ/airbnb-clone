@@ -23,8 +23,8 @@ const initialDateRange = {
 }
 
 interface ListingClientProps {
-  reservations?:SafeReservation[];
-  listing: Listing & {
+  reservations?: SafeReservation[];
+  listing: SafeListing & {
     user: SafeUser;
   };
   currentUser?: SafeUser | null;

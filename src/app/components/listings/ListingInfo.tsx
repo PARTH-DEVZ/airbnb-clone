@@ -102,7 +102,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             <div className="flex items-center gap-4 py-2">
                 <div className="relative">
                     <Image
-                        src={user?.image}
+                        src={user?.image || "/UserIcon.jpg"}
                         alt="User Icon"
                         width={56}
                         height={56}
