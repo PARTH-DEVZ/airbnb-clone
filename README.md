@@ -1,36 +1,193 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Airbnb Clone
 
-## Getting Started
+Production-grade full-stack accommodation booking platform inspired by Airbnb, engineered with secure authentication, scalable architecture, and real-world reservation logic.
 
-First, run the development server:
+🔗 Live Application: https://airbnb-nine-plum.vercel.app/
 
-```bash
+🔗 Repository: https://github.com/PARTH-DEVZ/airbnb-clone
+
+🔗 Portfolio Page: https://parthdevz.vercel.app/project/airbnb
+
+📌 Overview
+
+This project is a full-stack Airbnb-inspired booking platform designed to simulate real-world travel marketplace systems.
+
+The application implements:
+
+Secure authentication workflows
+
+Role-based host & guest experiences
+
+Dynamic property listing management
+
+Reservation validation with booking conflict prevention
+
+Geo-location powered property discovery
+
+The architecture emphasizes scalability, maintainability, and strong authorization boundaries, mirroring production-level travel platforms.
+
+🛠 Tech Stack
+Frontend
+
+Next.js (App Router)
+
+React
+
+TypeScript
+
+Tailwind CSS
+
+Zustand (Global State Management)
+
+Backend
+
+Next.js API Routes
+
+Prisma ORM
+
+PostgreSQL
+
+Authentication
+
+NextAuth (Credentials + OAuth Providers)
+
+Server-side session validation
+
+Protected API routes
+
+Media & Maps
+
+Cloudinary (Image upload & optimization)
+
+Leaflet (Interactive geo-location mapping)
+
+Deployment
+
+Vercel
+
+Managed PostgreSQL database
+
+✨ Core Features
+🔐 Authentication & Authorization
+
+Credential & OAuth login support
+
+Secure session management
+
+Role-based access (Host / Guest)
+
+API-level authorization enforcement
+
+🏠 Property Management
+
+Create, update, and delete listings
+
+Cloudinary-powered image uploads
+
+Pricing & location configuration
+
+Interactive map preview
+
+📅 Reservation System
+
+Date-based availability validation
+
+Booking conflict prevention logic
+
+Secure reservation flow
+
+Reservation management dashboard
+
+🗺 Map-Based Discovery
+
+Interactive Leaflet map rendering
+
+Dynamic location markers
+
+Location-aware browsing experience
+
+👤 User Dashboards
+
+Guests:
+
+Manage trips
+
+View reservations
+
+Hosts:
+
+Manage listings
+
+Track bookings
+
+Role-specific data rendering
+
+⚡ Architecture & Performance
+
+Modular component structure
+
+Prisma-optimized relational schema
+
+Efficient booking query handling
+
+Clean separation of UI, business logic, and data layer
+
+Fully responsive cross-device experience
+
+🧠 Architecture Highlights
+
+Scalable Next.js App Router structure
+
+Clear separation of concerns
+
+Centralized state management with Zustand
+
+Secure route protection with session validation
+
+Conflict-safe booking algorithm
+
+📂 Project Structure
+/app            → Pages & API handlers
+/components     → Reusable UI components
+/actions        → Server-side logic
+/prisma         → Database schema & migrations
+/hooks          → Custom React hooks
+/public         → Static assets
+⚙️ Local Setup
+git clone https://github.com/PARTH-DEVZ/airbnb-clone
+cd airbnb-clone
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🔑 Environment Variables
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a .env file in the root directory:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+DATABASE_URL=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+GITHUB_ID=
+GITHUB_SECRET=
+CLOUDINARY_URL=
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Ensure OAuth providers and database credentials are properly configured.
 
-## Learn More
+🚀 Future Improvements
 
-To learn more about Next.js, take a look at the following resources:
+Real-time booking updates
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Payment gateway integration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Advanced search filters
 
-## Deploy on Vercel
+AI-powered property recommendations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Load testing & performance benchmarking
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+👨‍💻 Author
+
+Parth Kulkarni
+Full-Stack Developer focused on scalable systems, secure architecture, and AI-driven engineering.
+
+📄 License
+
+Developed for portfolio and educational purposes.
